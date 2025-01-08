@@ -1,11 +1,18 @@
-const formData = {
+const feedbackForm = document.querySelector('.feedback-form');
+
+let formData = {
   email: '',
   message: '',
 };
 
-const feedbackForm = document.querySelector('.feedback-form');
-feedbackForm.addEventListener('submit', handleSubmit);
-feedbackForm.addEventListener('input', handleInput);
+function setFormData(item) {
+  const defaultValue = JSON.parse(localStorage.getItem('feedback-form-state'));
+  if (defaultValue !== null) {
+    formData = defaultValue;
+  } else return;
+}
+
+setFormData();
 
 function handleInput(event) {
   const inputSrc = event.target;
@@ -40,3 +47,6 @@ if (savedItem !== null) {
   feedbackForm.elements.email.value = savedItem.email;
   feedbackForm.elements.message.value = savedItem.message;
 }
+
+feedbackForm.addEventListener('submit', handleSubmit);
+feedbackForm.addEventListener('input', handleInput);
